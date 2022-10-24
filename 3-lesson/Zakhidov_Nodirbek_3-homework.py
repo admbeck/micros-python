@@ -243,6 +243,9 @@ if not width.isdigit() or not length.isdigit() or not parts.isdigit():
     print("Error. Input values are not digits!")
     exit()
 
+if int(parts) > (int(length) * int(width)):
+    print("Error. Impossible amount of parts")
+
 if (int(parts) % int(width)) == 0 or (int(parts) % int(length)) == 0:
     print("YES")
 else:
