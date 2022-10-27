@@ -29,24 +29,38 @@ while True:
     if not name:
         break
 
-    print(f"Python: Что ж, {name}, я загадываю целое число от 1 до 5.")
-    number = randrange(1, 6)
-    att = 0
-
+    level = 1
     while True:
-        print("Попробуй угадать.")
-        guess = input(f"{name}: ")
-        att += 1
+        maximum = 5 * level
+        print("-"*20)
+        print(f"Python: Уровень {level}")
+        print(f"Python: Что ж, {name}, я загадываю целое число от 1 до {maximum}.")
+        number = randrange(1, maximum + 1)
+        att = 0
 
-        if guess.isdigit() != True:
-            print("Это не номер. Повторите снова.")
-            continue
+        while True:
+            print("Попробуй угадать.")
+            guess = input(f"{name}: ")
+            att += 1
 
-        guess = int(guess)
-        if guess == number:
-            print(f"Python: Отлично, {name}! Ты справился за {att} попытки.")
-            exit()
-        elif guess > number:
-            print("Твое число слишком большое.")
-        else:
-            print("Твое число слишком маленькое.")
+            if guess.isdigit() != True:
+                print("Это не номер. Повторите снова.")
+                continue
+
+            guess = int(guess)
+            if guess == number:
+                print(f"Python: Отлично, {name}! Ты справился за {att} попытки.")
+                cont = input("Python: Перейти на следующий уровень? [Y/n]")
+                if not cont:
+                    level += 1
+                    break
+                elif cont.lower()[:1] == 'y':
+                    level += 1
+                    break
+                elif cont.lower()[:1] == 'n':
+                    print(f"Python: Вы дошли до {level}-го уровня.")
+                    exit()
+            elif guess > number:
+                print("Твое число слишком большое.")
+            else:
+                print("Твое число слишком маленькое.")

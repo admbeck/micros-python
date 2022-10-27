@@ -23,9 +23,11 @@ h, m, s = int(h), int(m) - 1, int(s)  # всегда должно быть на 
 
 if m == -1:
     m = 59
+    h -= 1
 
-for k in range (h,-1,-1):
-    for j in range (m,-1,-1):
+for k in range(h,-1,-1):
+    for j in range(m,-1,-1):
         for i in range(60,-1,-1):
             print(f"\r{k}:{j}:{i}", end='', flush=True)
-            sleep(0.1)
+            sleep(1)
+    m = 59
