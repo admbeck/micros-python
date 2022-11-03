@@ -36,7 +36,7 @@ store = {
   },
   {
    'quantity': 1,
-    'price': 1150
+   'price': 1150
   },
  ],
  '45678': [
@@ -54,3 +54,11 @@ store = {
   },
  ],
 }
+# кода намного меньше, чем ожидалось
+for i in goods:
+    quant = price = 0
+    for j in range(len(store[goods[i]])):
+        quant += store[goods[i]][j]['quantity']
+        price += store[goods[i]][j]['price'] * store[goods[i]][j]['quantity']
+
+    print(f"Продукт: {i}, Количество: {quant}, Стоимость: {price}")
