@@ -1,0 +1,52 @@
+<Router>display ip interface brief 
+*down: administratively down
+!down: FIB overload down
+^down: standby
+(l): loopback
+(s): spoofing
+(d): Dampening Suppressed
+(E): E-Trunk down
+The number of interface that is UP in Physical is 30
+The number of interface that is DOWN in Physical is 9
+The number of interface that is UP in Protocol is 26
+The number of interface that is DOWN in Protocol is 13
+Interface                         IP Address/Mask      Physical   Protocol VPN 
+25GE1/0/1                         unassigned           down       down     --  
+25GE1/0/2(10G)                    203.29.207.71/25     up         up       --  
+25GE1/0/3(10G)                    100.64.1.9/30         up         up       --  
+25GE1/0/4(10G)                    100.64.2.1/30         up         up       --  
+25GE1/0/5(10G)                    100.64.1.29/30        up         up       --  
+25GE1/0/6(10G)                    unassigned           up         down     --  
+25GE1/0/6.200(10G)                100.64.2.9/30         up         up       --  
+25GE1/0/6.201(10G)                100.64.2.17/29        up         up       --  
+25GE1/0/7(10G)                    205.159.136.73/30    up         up       --  
+25GE1/0/8                         unassigned           down       down     --  
+25GE1/0/9(10G)                    unassigned           down       down     --  
+25GE1/0/10(10G)                   unassigned           down       down     --  
+25GE1/0/11(10G)                   unassigned           down       down     --  
+25GE1/0/12(10G)                   unassigned           down       down     --  
+25GE1/0/13(10G)                   unassigned           down       down     --  
+25GE1/0/14                        unassigned           down       down     --  
+25GE1/0/15                        unassigned           down       down     --  
+Eth-Trunk1                        100.64.1.1/30         up         up       --  
+Eth-Trunk1.102                    54.241.214.98/30      up         up       --  
+Eth-Trunk1.104                    54.241.214.241/30     up         up       --  
+Eth-Trunk1.106                    54.241.214.86/30      up         up       --  
+Eth-Trunk1.107                    205.159.136.34/30    up         up       --  
+Eth-Trunk1.110                    54.241.214.226/30     up         up       --  
+Eth-Trunk1.111                    205.159.136.82/30    up         up       --  
+Eth-Trunk2                        100.64.1.5/30         up         up       --  
+Eth-Trunk2.103                    54.241.214.106/30     up         up       --  
+Eth-Trunk2.105                    54.241.214.245/30     up         up       --  
+Eth-Trunk2.108                    205.159.136.38/30    up         up       --  
+Eth-Trunk2.112                    205.159.136.86/30    up         up       --  
+Eth-Trunk10                       208.69.89.181/31    up         up       --  
+Eth-Trunk20                       unassigned           up         down     --  
+Eth-Trunk20.2                     94.54.111.23/31      up         up       --  
+GigabitEthernet0/0/0              10.115.0.51/24        up         up       --  
+LoopBack22                        unassigned           up         up(s)    --  
+LoopBack100                       unassigned           up         up(s)    --  
+NULL0                             unassigned           up         up(s)    --  
+Virtual-Ethernet1/0/0             unassigned           up         down     --  
+Virtual-Ethernet1/0/1             unassigned           up         down     --  
+Virtual-Template0                 unassigned           up         up(s)    --  
