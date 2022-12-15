@@ -1,0 +1,129 @@
+CREATE TABLE animals(
+    animal_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+
+INSERT INTO animals(name) VALUES('Dog');
+
+
+SELECT * FROM animals;
+
+SELECT name FROM animals;
+SELECT name FROM animals WHERE animal_id = 3;
+
+INSERT INTO animals(name) VALUES ('Cat'), ('Rat'), ('Rabbit');
+SELECT animal_id FROM animals WHERE name = 'Cat';
+
+SELECT * FROM animals WHERE LENGTH(name) = 6;
+SELECT * FROM animals WHERE LENGTH(name) >= 3;
+
+SELECT LENGTH(name) FROM animals;
+--Коммент
+SELECT * FROM animals ORDER BY animal_id;
+SELECT * FROM animals ORDER BY animal_id DESC;
+SELECT * FROM animals ORDER BY animal_id DESC LIMIT 1;
+
+DELETE FROM animals WHERE name = 'Rabbit';
+SELECT * FROM animals;
+
+
+CREATE TABLE books(
+    book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    author TEXT
+);
+
+INSERT INTO books(name, author) 
+VALUES ('Война и Мир', 'Толстой');
+
+SELECT * FROM books;
+
+ALTER TABLE books ADD COLUMN year TEXT;
+
+UPDATE books 
+SET year = '1867' 
+WHERE name = 'Война и Мир';
+
+
+DROP TABLE animals;
+
+-- Один ко многим
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS courses;
+
+CREATE TABLE IF NOT EXISTS courses(
+    course_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    course_name TEXT UNIQUE 
+);
+CREATE TABLE IF NOT EXISTS students(
+    student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_name TEXT,
+    course_id INTEGER REFERENCES courses(course_id)
+);
+
+INSERT INTO courses(course_name) 
+VALUES ('python'), ('linux'), ('windows');
+
+INSERT INTO students(student_name, course_id) VALUES
+('Misha', 1),
+('Lena', 2),
+('Anton', 3);
+
+SELECT * FROM students;
+SELECT * FROM courses;
+
+SELECT * FROM students 
+JOIN courses ON courses.course_id = students.course_id;
+
+
+SELECT student_name, course_name FROM students 
+JOIN courses ON courses.course_id = students.course_id;
+
+
+-- Много ко многим
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS teachers;
+DROP TABLE IF EXISTS teachers_students;
+
+CREATE TABLE IF NOT EXISTS students(
+    student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_name TEXT
+);
+CREATE TABLE IF NOT EXISTS teachers(
+    teacher_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    teacher_name TEXT
+);
+CREATE TABLE IF NOT EXISTS teachers_students(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    teacher_id INTEGER REFERENCES teachers(teacher_id),
+    student_id INTEGER REFERENCES students(student_id)
+);
+
+
+INSERT INTO teachers(teacher_name) VALUES
+('Shevchenko Egor'),
+('Trankov Dmitriy'),
+('Omonov Bekzod');
+
+INSERT INTO students(student_name) VALUES
+('Diyor'),
+('Ramil'),
+('Rustam');
+
+INSERT INTO teachers_students(teacher_id, student_id) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 3),
+(3, 3);
+
+SELECT * FROM students;
+SELECT * FROM teachers;
+SELECT * FROM teachers_students;
+
+SELECT teachers.teacher_name, students.student_name
+FROM teachers_students
+JOIN teachers ON teachers.teacher_id = teachers_students.teacher_id
+JOIN students ON students.student_id = teachers_students.student_id;
+
