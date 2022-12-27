@@ -1,0 +1,117 @@
+CREATE TABLE IF NOT EXISTS users(
+	user_id INTEGER PRIMARY KEY,
+	first_name VARCHAR(20),
+	last_name VARCHAR(20)
+);
+
+INSERT INTO users VALUES(2, 'Dima', 'Bilan');
+
+SELECT * FROM users;
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users(
+	user_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(20),
+	last_name VARCHAR(20)
+);
+INSERT INTO users(first_name, last_name) VALUES ('Dima', 'Bilan');
+SELECT * FROM users;
+INSERT INTO users VALUES (4, 'Dima', 'Bilan');
+
+DROP TABLE IF EXISTS users;
+
+
+CREATE TABLE IF NOT EXISTS users(
+	user_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	first_name VARCHAR(20),
+	last_name VARCHAR(20)
+);
+
+INSERT INTO users(first_name, last_name) VALUES ('Dima', 'Bilan');
+SELECT * FROM users;
+
+
+---------------
+SELECT * FROM customers;
+SELECT country FROM customers;
+
+SELECT DISTINCT country FROM customers;
+SELECT DISTINCT country FROM employees;
+SELECT  country FROM employees;
+
+SELECT country FROM customers
+UNION 
+SELECT country FROM employees;
+
+SELECT country FROM customers
+UNION ALL
+SELECT country FROM employees;
+
+
+
+SELECT country FROM customers
+INTERSECT 
+SELECT country FROM employees;
+
+
+
+SELECT country FROM customers
+EXCEPT 
+SELECT country FROM employees;
+
+
+
+SELECT product_name, category_name  FROM products
+JOIN categories ON products.category_id = categories.category_id;
+
+
+
+SELECT product_name, category_name  FROM products
+JOIN categories USING(category_id);
+
+
+SELECT SUM(units_in_stock) AS total_units, category_name FROM products
+JOIN categories USING(category_id)
+GROUP BY category_name
+ORDER BY total_units;
+
+SELECT AVG(unit_price) FROM products;
+
+SELECT product_name, unit_price FROM products
+WHERE unit_price > (SELECT AVG(unit_price) FROM products )
+ORDER BY unit_price;
+
+
+SELECT  contact_name, freight FROM orders
+JOIN customers USING(customer_id)
+WHERE freight BETWEEN 50 AND 100;
+
+SELECT product_name, unit_price, 
+CASE
+    WHEN unit_price >= 80 THEN 'Очень дорого'
+	WHEN unit_price >= 20 THEN 'Нормально'
+	WHEN unit_price >= 1 THEN 'Дешево'
+END AS price_description
+FROM products;
+
+SELECT company_name, region FROM customers;
+SELECT company_name, COALESCE(region, 'Регион не указан') FROM customers;
+
+SELECT COALESCE((NULLIF(region, 'SP')), 'SERVICE PROVAYDER') FROM customers;
+
+
+SELECT COALESCE((NULLIF(country, 'UK')), 'Великобритания') FROM customers;
+
+
+
+
+
+
+
+
+
+
+
+
+
