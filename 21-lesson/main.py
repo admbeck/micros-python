@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from os import getenv
 from database import select_categories, check_category_name, get_image_links, get_image_id, get_image
 from keyboards import generate_categories, generate_download_button
@@ -13,12 +14,10 @@ TOKEN = getenv('TOKEN')
 bot = Bot(TOKEN)
 dp = Dispatcher(bot)
 
-
 @dp.message_handler(commands=['start'])
 async def command_start(message: Message):
     await message.answer('Добро пожалолвать в наш тг бот')
     await show_categories(message)
-
 
 async def show_categories(message: Message):
     chat_id = message.chat.id
@@ -32,7 +31,7 @@ async def get_image_by_category(message: Message):
         image_links = get_image_links(category_id[0])
         random_index = randint(0, len(image_links) - 1)
         random_image_link = image_links[random_index][0]
-        resolution = re.search( '[0-9]+x[0-9]+', random_image_link)[0]
+        resolution = re.search('[0-9]+x[0-9]+', random_image_link)[0]
         image_id = get_image_id(random_image_link)
         try:
             await message.answer_photo(photo=random_image_link,
@@ -45,14 +44,12 @@ async def get_image_by_category(message: Message):
             await message.answer_photo(photo=resize_link,
                                        caption=f'Разрешение {resolution} try',
                                        reply_markup=generate_download_button(image_id))
-
     else:
         await message.answer('Просто нажмите на кнопку')
         await show_categories(message)
 
-
 @dp.callback_query_handler(lambda call: 'download' in call.data)
-async def download_finction(call: CallbackQuery):
+async def download_function(call: CallbackQuery):
     chat_id = call.message.chat.id
     _, image_id = call.data.split('_')
     image_link = get_image(image_id)
@@ -61,10 +58,25 @@ async def download_finction(call: CallbackQuery):
     except:
         await bot.send_message(chat_id, f'Скачай сам {image_link}')
 
-
-
-
-
+@dp.callback_query_handler(lambda call: 'mobile' in call.data)
+async def mobile_function(call: CallbackQuery):
+    chat_id = call.message.chat.id
+    _, image_id = call.data.split('_')
+    image_link = get_image(image_id)
+    resolution = re.search('[0-9]+x[0-9]+', image_link)[0]
+    resize_link = image_link.replace(resolution, '1440x2560')
+    try:
+        await bot.send_document(chat_id, resize_link)
+    except:
+        try:
+            resize_link = image_link.replace(resolution, '1080x1920')
+            await bot.send_document(chat_id, resize_link)
+        except:
+            try:
+                resize_link = image_link.replace(resolution, '720x1280')
+                await bot.send_document(chat_id, resize_link)
+            except:
+                await bot.send_message(chat_id, f'Мобильного разрешения нет ¯\_(ツ)_/¯')
 
 
 if __name__ == '__main__':

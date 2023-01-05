@@ -1,5 +1,5 @@
+#!/usr/bin/env python3
 import sqlite3
-
 
 def select_categories():
     database = sqlite3.connect('wallpapers.db')
@@ -11,7 +11,6 @@ def select_categories():
     database.close()
     return categories
 
-
 def check_category_name(category_name):
     database = sqlite3.connect('wallpapers.db')
     cursor = database.cursor()
@@ -21,7 +20,6 @@ def check_category_name(category_name):
     category_id = cursor.fetchone()
     database.close()
     return category_id
-
 
 def get_image_links(category_id):
     database = sqlite3.connect('wallpapers.db')
@@ -33,7 +31,6 @@ def get_image_links(category_id):
     database.close()
     return links
 
-
 def get_image_id(image_link):
     database = sqlite3.connect('wallpapers.db')
     cursor = database.cursor()
@@ -43,7 +40,6 @@ def get_image_id(image_link):
     image_id = cursor.fetchone()
     database.close()
     return image_id
-
 
 def get_image(image_id):
     database = sqlite3.connect('wallpapers.db')
