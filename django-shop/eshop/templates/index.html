@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+    <!-- MODAL -->
+    {% include "components/_modal.html" %}
+    <div class="container">
+        <!-- BANNER SECTION -->
+        {% include "components/_banner.html" %}
+        <!-- CATEGORIES SECTION -->
+        {% include "components/_categories.html" %}
+        <!-- TRENDING PRODUCTS -->
+        {% include "components/_trending.html" %}
+        <!-- SERVICES -->
+        {% include "components/_services.html" %}
+        <!-- NEWSLETTER -->
+        {% include "components/_newsletter.html" %}
+    </div>
+</main>
+{% endblock main %}

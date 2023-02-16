@@ -11,7 +11,15 @@ class Category(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Sub-category', related_name='subcategories')
 
     def get_absolute_url(self):
-        pass
+        """Link to category page"""
+        return reverse('category_detail', kwargs={'slug': self.slug})
+
+    def get_parent_category_photo(self):
+        """Get images for parent categories"""
+        if self.image:
+            return self.image
+        else:
+            return 'https://http.cat/404.jpg'
 
     def __str__(self):
         return self.title
@@ -40,6 +48,13 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         pass
+
+    def get_first_photo(self):
+        """Get first image of the product"""
+        if self.images:
+            return self.images.first().image.url
+        else:
+            return 'https://http.cat/404.jpg'
 
     def __str__(self):
         return self.title
